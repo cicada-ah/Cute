@@ -1,0 +1,34 @@
+{
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "useJSXTextNode": true,
+    "project": "./tsconfig.json"
+  },
+  "plugins": [
+    "@typescript-eslint",
+    "prettier"
+  ],
+  "rules": {
+    "@typescript-eslint/no-empty-interface": "off",
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/member-delimiter-style": "off",
+    "@typescript-eslint/ban-ts-ignore": "off",
+    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/no-use-before-define": "off",
+    "import/no-unresolved": "off"
+  },
+  "extends": [
+    "eslint:recommended",
+    "prettier",
+    "plugin:prettier/recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:import/errors",
+    "plugin:import/warnings",
+    "plugin:import/typescript"
+  ]
+}
