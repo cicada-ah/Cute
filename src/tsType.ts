@@ -1,6 +1,6 @@
 export interface VNode {
   type: string | symbol
-  attr?: any
+  props?: any
   children?: VNode[] | string
   el?: HTMLElement | Text
   $$typeof?: symbol

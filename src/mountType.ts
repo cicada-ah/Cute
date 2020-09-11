@@ -6,12 +6,12 @@ const mountLabel = (newNode: VNode, container: vElement): void => {
   // 创建
   const el = document.createElement(newNode.type as string)
   const { entries } = Object
-  const { attr, children } = newNode
-  if (attr) {
-    for (const prop in attr) {
+  const { props, children } = newNode
+  if (props) {
+    for (const prop in props) {
       switch (prop) {
         case 'style':
-          for (const [key, value] of entries(attr[prop])) {
+          for (const [key, value] of entries(props[prop])) {
             el.style[key] = value
           }
       }
@@ -39,7 +39,18 @@ const mountText = (newNode: VNode, container: vElement): void => {
 const mountComponent = (newNode: VNode, container: vElement): void => {}
 
 // 挂载Portal
-const mountPortal = (newNode: VNode, container: vElement): void => {}
+const mountPortal = (newNode: VNode, container: vElement): void => {
+  const { props, children } = newNode
+  //  根据想挂载元素的id
+  const portalElement = document.querySelector(props.position)
+  if (portalElement) {
+    Array.prototype.forEach.call(children, item => {
+      mount(item, portalElement)
+    })
+  }
+  // 取到第一个子节点，方便后续移除更新
+  newNode.el = (children[0] as VNode).el
+}
 
 // 挂载fragment
 const mountFragment = (newNode: VNode, container: vElement): void => {
@@ -50,6 +61,8 @@ const mountFragment = (newNode: VNode, container: vElement): void => {
       mount(item, container)
     })
   }
+  // 取到第一个子节点，方便后续移除更新
+  newNode.el = (children[0] as VNode).el
 }
 
 export { mountLabel, mountText, mountComponent, mountPortal, mountFragment }

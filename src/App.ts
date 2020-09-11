@@ -3,7 +3,7 @@ const App = () => {
   // 普通标签 vnode
   const createElement = {
     type: 'marquee',
-    attr: {
+    props: {
       style: {
         height: '66px',
         color: '#fff',
@@ -13,7 +13,7 @@ const App = () => {
     children: [
       {
         type: null,
-        attr: null,
+        props: null,
         children: 'hi',
         $$typeof: Symbol.for('react.element'),
       },
@@ -24,11 +24,11 @@ const App = () => {
   // fragment vnode
   const createFragment = {
     type: Symbol.for('react.fragment'),
-    attr: null,
+    props: null,
     children: [
       {
         type: 'p',
-        attr: {
+        props: {
           style: {
             height: '66px',
             textAlign: 'center',
@@ -36,7 +36,7 @@ const App = () => {
             background: 'green',
           },
         },
-        children: [{ type: null, attr: null, children: 'fragment' }],
+        children: [{ type: null, props: null, children: 'fragment' }],
         $$typeof: Symbol.for('react.element'),
       },
       createElement,
@@ -45,7 +45,31 @@ const App = () => {
     $$typeof: Symbol.for('react.element'),
   }
 
-  return createFragment
+  // 任意门还就那个起飞✈
+  const createPortal = {
+    type: Symbol.for('react.portal'),
+    props: {
+      position: '#portal',
+    },
+    children: [
+      {
+        type: 'p',
+        props: {
+          style: {
+            height: '66px',
+            textAlign: 'center',
+            color: '#fff',
+            background: 'orange',
+          },
+        },
+        children: [{ type: null, props: null, children: 'portal' }],
+        $$typeof: Symbol.for('react.element'),
+      },
+      createFragment,
+    ],
+    $$typeof: Symbol.for('react.element'),
+  }
+  return createPortal
 }
 
 export default App()
