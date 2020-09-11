@@ -43,7 +43,7 @@ const mountPortal = (newNode: VNode, container: vElement): void => {}
 
 // 挂载fragment
 const mountFragment = (newNode: VNode, container: vElement): void => {
-  // 没有el，把夫节点传入mount
+  // 没有el，把父节点传入mount
   const { children } = newNode
   if (children) {
     Array.prototype.forEach.call(children, item => {
