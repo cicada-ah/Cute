@@ -1,3 +1,6 @@
+import ChildFun from './components/childFun'
+import ChildClass from './components/childComp'
+
 // 模拟组件返回vnode
 const App = () => {
   // 普通标签 vnode
@@ -69,7 +72,23 @@ const App = () => {
     ],
     $$typeof: Symbol.for('react.element'),
   }
-  return createPortal
+
+  // 函数组件
+  const createFuncComp = {
+    type: ChildFun,
+    props: null,
+    children: null,
+    $$typeof: Symbol.for('react.element'),
+  }
+
+  // class组件
+  const createClassComp = {
+    type: ChildClass,
+    props: null,
+    children: null,
+    $$typeof: Symbol.for('react.element'),
+  }
+  return createClassComp
 }
 
 export default App()

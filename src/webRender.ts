@@ -45,7 +45,7 @@ export function mount(newNode: VNode, container: vElement): void {
   if (typeof type === 'string' && !reg.test(type)) {
     // 挂载普通标签
     mountLabel(newNode, container)
-  } else if (typeof type === 'string') {
+  } else if (typeof type === 'function') {
     // 挂载组件
     mountComponent(newNode, container)
   } else if (type === null) {
@@ -53,7 +53,7 @@ export function mount(newNode: VNode, container: vElement): void {
     mountText(newNode, container)
   } else if (type === Symbol.for('react.portal')) {
     // 挂载portal
-    mountPortal(newNode, container)
+    mountPortal(newNode)
   } else if (type === Symbol.for('react.fragment')) {
     // 挂载fragment
     mountFragment(newNode, container)

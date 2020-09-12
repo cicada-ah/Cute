@@ -1,5 +1,5 @@
 export interface VNode {
-  type: string | symbol
+  type: string | symbol | any
   props?: any
   children?: VNode[] | string
   el?: HTMLElement | Text

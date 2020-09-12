@@ -35,11 +35,40 @@ const mountText = (newNode: VNode, container: vElement): void => {
   container.appendChild(el)
 }
 
-// 挂载组件
-const mountComponent = (newNode: VNode, container: vElement): void => {}
+// 挂载组件（待修改）
+const mountComponent = (newNode: VNode, container: vElement): void => {
+  if (newNode.type.prototype._isClassComponent) {
+    // class组件
+    mountClassComp(newNode, container)
+  } else {
+    mountFuncComp(newNode, container)
+  }
+}
+
+// 挂载class组件
+const mountClassComp = (newNode: VNode, container: vElement): void => {
+  // 创建实例
+  const instance = new newNode.type()
+  // 调用render
+  const vnode = instance.render()
+  // 挂载vnode
+  mount(vnode, container)
+  // 组件没有真实el，但是vnode进去mount一定会被绑定
+  newNode.el = vnode.el
+}
+
+// 挂载函数组件
+const mountFuncComp = (newNode: VNode, container: vElement): void => {
+  // 调用函数获取vnode
+  const vnode = newNode.type()
+  // 挂载vnode
+  mount(vnode, container)
+  // 组件没有真实el，但是vnode进去mount一定会被绑定
+  newNode.el = vnode.el
+}
 
 // 挂载Portal
-const mountPortal = (newNode: VNode, container: vElement): void => {
+const mountPortal = (newNode: VNode): void => {
   const { props, children } = newNode
   //  根据想挂载元素的id
   const portalElement = document.querySelector(props.position)
