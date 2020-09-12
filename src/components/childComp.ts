@@ -2,16 +2,24 @@ import CuteComponent from './cuteComponent'
 import { VNode } from '@/tsType'
 
 class ChildClass extends CuteComponent {
+  state: { count: number }
   constructor(props: any) {
     super(props)
+    this.state = { count: 1 }
   }
+
   render = (): VNode => {
+    this.state.count === 1 &&
+      setTimeout(() => {
+        this.setState({ count: 2 })
+      }, 3000)
     return {
-      type: 'marquee',
+      type: 'div',
       props: {
         style: {
           height: '66px',
-          color: '#fff',
+          color: 'red',
+          fontSize: '25px',
           background: '#ddd',
         },
       },
@@ -19,7 +27,7 @@ class ChildClass extends CuteComponent {
         {
           type: null,
           props: null,
-          children: 'ChildComp',
+          children: `'ChildComp' count->|${this.state.count}`,
           $$typeof: Symbol.for('react.element'),
         },
       ],

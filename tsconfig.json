@@ -28,6 +28,7 @@
     "./typings/**/*"
   ],
   "exclude": [
+    "./src/**/*.js",
     "node_modules"
   ]
 }
