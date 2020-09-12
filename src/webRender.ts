@@ -1,11 +1,6 @@
-import {
-  mountLabel,
-  mountText,
-  mountComponent,
-  mountPortal,
-  mountFragment,
-} from './mountType'
+import { mount } from './mount'
 import { VNode, vElement } from './tsType'
+import { patch } from './patch'
 
 function webRender(newNode: VNode, container: vElement): void {
   // 第一次之后会把vnode挂载到container上
@@ -36,33 +31,6 @@ function webRender(newNode: VNode, container: vElement): void {
   }
   // 最后给container 绑定vnode
   container.vnode = newNode
-}
-
-// 挂载函数
-export function mount(newNode: VNode, container: vElement): void {
-  const { type } = newNode
-  const reg = /^[A-Z]+$/
-  if (typeof type === 'string' && !reg.test(type)) {
-    // 挂载普通标签
-    mountLabel(newNode, container)
-  } else if (typeof type === 'function') {
-    // 挂载组件
-    mountComponent(newNode, container)
-  } else if (type === null) {
-    // 挂载文本
-    mountText(newNode, container)
-  } else if (type === Symbol.for('react.portal')) {
-    // 挂载portal
-    mountPortal(newNode)
-  } else if (type === Symbol.for('react.fragment')) {
-    // 挂载fragment
-    mountFragment(newNode, container)
-  }
-}
-
-// 补丁函数
-function patch(newNode: VNode, oldNode: VNode, container: vElement): void {
-  console.log(1)
 }
 
 export default webRender

@@ -1,6 +1,24 @@
-import { mount } from './webRender'
 import { VNode, vElement } from './tsType'
-
+// 挂载函数
+export function mount(newNode: VNode, container: vElement): void {
+  const { type } = newNode
+  if (typeof type === 'string') {
+    // 挂载普通标签
+    mountLabel(newNode, container)
+  } else if (typeof type === 'function') {
+    // 挂载组件
+    mountComponent(newNode, container)
+  } else if (type === null) {
+    // 挂载文本
+    mountText(newNode, container)
+  } else if (type === Symbol.for('react.portal')) {
+    // 挂载portal
+    mountPortal(newNode)
+  } else if (type === Symbol.for('react.fragment')) {
+    // 挂载fragment
+    mountFragment(newNode, container)
+  }
+}
 // 挂载标签
 const mountLabel = (newNode: VNode, container: vElement): void => {
   // 创建
@@ -56,7 +74,7 @@ const mountClassComp = (newNode: VNode, container: vElement): void => {
   // 组件没有真实el，但是vnode进去mount一定会被绑定
   newNode.el = vnode.el
   // 给实例挂载上el
-  instance.$el = vnode.el
+  instance.$el = container
 }
 
 // 挂载函数组件
