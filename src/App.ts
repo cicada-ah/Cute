@@ -1,5 +1,6 @@
 // import ChildFun from './components/childFun'
 import ChildClass from './components/childComp'
+import ChildFun from './components/childFun'
 
 // 模拟组件返回vnode
 const App = () => {
@@ -74,21 +75,21 @@ const App = () => {
   // }
 
   // 函数组件
-  // const createFuncComp = {
-  //   type: ChildFun,
-  //   props: null,
-  //   children: null,
-  //   $$typeof: Symbol.for('react.element'),
-  // }
-
-  // class组件
-  const createClassComp = {
-    type: ChildClass,
+  const createFuncComp = {
+    type: ChildFun,
     props: null,
     children: null,
     $$typeof: Symbol.for('react.element'),
   }
-  return createClassComp
+
+  // class组件
+  // const createClassComp = {
+  //   type: ChildClass,
+  //   props: null,
+  //   children: null,
+  //   $$typeof: Symbol.for('react.element'),
+  // }
+  return createFuncComp
 }
 
 export default App()

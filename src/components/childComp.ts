@@ -15,6 +15,7 @@ class ChildClass extends CuteComponent {
       }, 3000)
     return {
       type: 'div',
+      key: null,
       props: {
         style: {
           height: '66px',
@@ -26,6 +27,7 @@ class ChildClass extends CuteComponent {
       children: [
         {
           type: null,
+          key: null,
           props: null,
           children: `'ChildComp' count->|${this.state.count}`,
           $$typeof: Symbol.for('react.element'),

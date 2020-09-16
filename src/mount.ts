@@ -1,4 +1,5 @@
 import { VNode, vElement } from './tsType'
+import { _hook } from './components/mocHook'
 // 挂载函数
 export function mount(newNode: VNode, container: vElement): void {
   const { type } = newNode
@@ -55,7 +56,7 @@ const mountText = (newNode: VNode, container: vElement): void => {
 
 // 挂载组件（待修改）
 const mountComponent = (newNode: VNode, container: vElement): void => {
-  if (newNode.type.prototype._isClassComponent) {
+  if (newNode.type.prototype && newNode.type.prototype._isClassComponent) {
     // class组件
     mountClassComp(newNode, container)
   } else {
@@ -85,6 +86,10 @@ const mountFuncComp = (newNode: VNode, container: vElement): void => {
   mount(vnode, container)
   // 组件没有真实el，但是vnode进去mount一定会被绑定
   newNode.el = vnode.el
+  // 是hook函数
+  if (_hook._isHookFun) {
+    _hook.container = container
+  }
 }
 
 // 挂载Portal

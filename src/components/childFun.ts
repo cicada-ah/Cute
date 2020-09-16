@@ -1,18 +1,26 @@
+import { useState } from './mocHook'
+
 const ChildFun = (): any => {
+  const [count, setCount] = useState('red')
+  count === 'red' &&
+    setTimeout(() => {
+      setCount('green')
+    }, 3000)
   const createElement = {
-    type: 'marquee',
+    type: 'div',
     props: {
       style: {
         height: '66px',
-        color: '#fff',
-        background: '#ccc',
+        color: count,
+        fontSize: '25px',
+        background: '#ddd',
       },
     },
     children: [
       {
         type: null,
         props: null,
-        children: 'ChildFun',
+        children: `'ChildComp' count->|${count}`,
         $$typeof: Symbol.for('react.element'),
       },
     ],
