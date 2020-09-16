@@ -75,7 +75,7 @@ const mountClassComp = (newNode: VNode, container: vElement): void => {
   // 组件没有真实el，但是vnode进去mount一定会被绑定
   newNode.el = vnode.el
   // 给实例挂载上el
-  instance.$el = container
+  instance.$el = vnode.el
 }
 
 // 挂载函数组件

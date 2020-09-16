@@ -207,7 +207,8 @@ const patchComponent = (
 
 // patchText
 const patchText = (newNode: VNode, oldNode: VNode, container: vElement) => {
-  // 移除旧节点，mount新节点
-  container.removeChild(oldNode.el)
-  mount(newNode, container)
+  const el = (newNode.el = oldNode.el)
+  if (newNode.children !== oldNode.children) {
+    el.nodeValue = newNode.Children
+  }
 }

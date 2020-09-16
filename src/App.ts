@@ -5,25 +5,26 @@ import ChildFun from './components/childFun'
 // 模拟组件返回vnode
 const App = () => {
   // 普通标签 vnode
-  // const createElement = {
-  //   type: 'marquee',
-  //   props: {
-  //     style: {
-  //       height: '66px',
-  //       color: '#fff',
-  //       background: 'blue',
-  //     },
-  //   },
-  //   children: [
-  //     {
-  //       type: null,
-  //       props: null,
-  //       children: 'hi',
-  //       $$typeof: Symbol.for('react.element'),
-  //     },
-  //   ],
-  //   $$typeof: Symbol.for('react.element'),
-  // }
+  const createElement = {
+    type: 'marquee',
+    key: null,
+    props: {
+      style: {
+        height: '66px',
+        color: '#fff',
+        background: 'blue',
+      },
+    },
+    children: [
+      {
+        type: null,
+        props: null,
+        children: 'hi',
+        $$typeof: Symbol.for('react.element'),
+      },
+    ],
+    $$typeof: Symbol.for('react.element'),
+  }
 
   // fragment vnode
   // const createFragment = {
@@ -75,12 +76,13 @@ const App = () => {
   // }
 
   // 函数组件
-  const createFuncComp = {
-    type: ChildFun,
-    props: null,
-    children: null,
-    $$typeof: Symbol.for('react.element'),
-  }
+  // const createFuncComp = {
+  //   type: ChildFun,
+  //   props: null,
+  //   key: null,
+  //   children: null,
+  //   $$typeof: Symbol.for('react.element'),
+  // }
 
   // class组件
   // const createClassComp = {
@@ -89,7 +91,7 @@ const App = () => {
   //   children: null,
   //   $$typeof: Symbol.for('react.element'),
   // }
-  return createFuncComp
+  return createElement
 }
 
 export default App()
