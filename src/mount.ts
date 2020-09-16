@@ -1,5 +1,6 @@
 import { VNode, vElement } from './tsType'
 import { _hook } from './components/mocHook'
+import { patch } from './patch'
 // 挂载函数
 export function mount(newNode: VNode, container: vElement): void {
   const { type } = newNode
@@ -68,14 +69,32 @@ const mountComponent = (newNode: VNode, container: vElement): void => {
 const mountClassComp = (newNode: VNode, container: vElement): void => {
   // 创建实例
   const instance = new newNode.type()
-  // 调用render
-  const vnode = instance.render()
-  // 挂载vnode
-  mount(vnode, container)
-  // 组件没有真实el，但是vnode进去mount一定会被绑定
-  newNode.el = vnode.el
-  // 给实例挂载上el
-  instance.$el = vnode.el
+  // instance绑定_renderComponent
+  instance._renderComponent = () => {
+    // 挂载了，就执行patch的逻辑
+    if (instance._ismounted) {
+      const newNode = instance.render()
+      const oldNode = instance.vnode
+      patch(newNode, oldNode, oldNode.el.parentNode)
+      // 让newNode成为下一次的旧节点
+      instance.vnode = newNode
+      instance._el = newNode.el
+    } else {
+      // 调用render
+      const vnode = instance.render()
+      // 挂载vnode
+      mount(vnode, container)
+      // 组件没有真实el，但是vnode进去mount一定会被绑定
+      newNode.el = vnode.el
+      // 给实例挂载上el
+      instance._el = vnode.el
+      // 给vnode赋值，后续patch需要
+      instance.vnode = vnode
+      instance._ismounted = true
+    }
+  }
+  // 第一次正常挂载
+  instance._renderComponent()
 }
 
 // 挂载函数组件

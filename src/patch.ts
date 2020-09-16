@@ -192,23 +192,30 @@ const patchLabel = (newNode: VNode, oldNode: VNode, container: vElement) => {
   }
 }
 
+// patchText
+const patchText = (newNode: VNode, oldNode: VNode, container: vElement) => {
+  const el = (newNode.el = oldNode.el)
+  if (newNode.children !== oldNode.children) {
+    el.nodeValue = newNode.children as string
+  }
+}
+
 // patchComponent
 const patchComponent = (
   newNode: VNode,
   oldNode: VNode,
   container: vElement
 ) => {
-  // 移除旧节点，mount新节点
-  container.removeChild(oldNode.el)
-  mount(newNode, container)
-  // 更新container上的vnode
-  container.vnode = newNode
-}
-
-// patchText
-const patchText = (newNode: VNode, oldNode: VNode, container: vElement) => {
-  const el = (newNode.el = oldNode.el)
-  if (newNode.children !== oldNode.children) {
-    el.nodeValue = newNode.Children
+  if (newNode.type.prototype && newNode.type.prototype._isClassComponent) {
+    // class组件
+    patchClassComp(newNode, oldNode, container)
+  } else {
+    // patchFuncComp(newNode, oldNode, container)
   }
 }
+// patchClassComp
+const patchClassComp = (
+  newNode: VNode,
+  oldNode: VNode,
+  container: vElement
+) => {}
