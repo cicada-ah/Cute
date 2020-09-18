@@ -218,4 +218,6 @@ const patchClassComp = (
   newNode: VNode,
   oldNode: VNode,
   container: vElement
-) => {}
+) => {
+  
+}

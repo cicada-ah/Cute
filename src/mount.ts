@@ -69,6 +69,8 @@ const mountComponent = (newNode: VNode, container: vElement): void => {
 const mountClassComp = (newNode: VNode, container: vElement): void => {
   // 创建实例
   const instance = new newNode.type()
+  // 为了在patch拿到instacne，来触发更新，再这把instance绑定到newNode上
+  newNode._instance = instance
   // instance绑定_renderComponent
   instance._renderComponent = () => {
     // 挂载了，就执行patch的逻辑
